@@ -1,3 +1,4 @@
+package com.threecubed.main;
 
 
 import java.awt.image.BufferedImage;

@@ -2,10 +2,15 @@ package com.threecubed.main;
 
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.image.BufferStrategy;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JFrame;
+
+import com.threecubed.entities.Entity;
+
 import java.awt.Color;
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -21,10 +26,14 @@ public class Game extends Canvas implements Runnable {
 
     private BufferedImage image;
 
+    public List<Entity> entities;
+
     public Game() {
         setPreferredSize( new Dimension(WIDTH*SCALE, HEIGHT*SCALE) );
         initFrame();
+        // init objects
         image = new BufferedImage(WIDTH*SCALE, HEIGHT*SCALE, BufferedImage.TYPE_INT_RGB);
+        entities = new ArrayList<Entity>();
     }
 
     public void initFrame(){

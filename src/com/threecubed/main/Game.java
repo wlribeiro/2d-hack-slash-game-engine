@@ -10,6 +10,8 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 
 import com.threecubed.entities.Entity;
+import com.threecubed.entities.Player;
+import com.threecubed.graficos.SprinteSheet;
 
 import java.awt.Color;
 import java.awt.Canvas;
@@ -22,11 +24,12 @@ public class Game extends Canvas implements Runnable {
     private boolean isRunning = true;
     private final int WIDTH = 240;
     private final int HEIGHT = 160;
-    private final int SCALE = 3;
+    private final int SCALE = 5;
 
     private BufferedImage image;
 
     public List<Entity> entities;
+    public SprinteSheet sprinteSheet;
 
     public Game() {
         setPreferredSize( new Dimension(WIDTH*SCALE, HEIGHT*SCALE) );
@@ -34,6 +37,10 @@ public class Game extends Canvas implements Runnable {
         // init objects
         image = new BufferedImage(WIDTH*SCALE, HEIGHT*SCALE, BufferedImage.TYPE_INT_RGB);
         entities = new ArrayList<Entity>();
+        sprinteSheet = new SprinteSheet("/spritsheet.png");
+
+        Player player = new Player(0, 0, 16, 16, sprinteSheet.getSprite(9*16, 16, 16, 16));
+        entities.add(player);
     }
 
     public void initFrame(){
@@ -62,7 +69,10 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void tick(){
-
+        for (int i = 0; i < entities.size(); i++) {
+            Entity e = entities.get(i);
+            e.tick();
+        }
     }
 
     public void render(){
@@ -77,7 +87,11 @@ public class Game extends Canvas implements Runnable {
 
         // section to render the game
 
-
+        for (int i = 0; i < entities.size(); i++) {
+            Entity e = entities.get(i);
+            e.render(g);
+        }
+        
         // end of section
         g.dispose();
         g = bs.getDrawGraphics();

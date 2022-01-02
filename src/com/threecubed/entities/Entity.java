@@ -56,4 +56,7 @@ public class Entity {
         g.drawImage(sprite, this.getX(), this.getY(), null);
     }
     
+    public void tick(){
+        
+    }
 }

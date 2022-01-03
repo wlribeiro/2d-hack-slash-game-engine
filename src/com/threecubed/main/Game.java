@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.image.BufferStrategy;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import javax.swing.JFrame;
 
 import com.threecubed.entities.Entity;
 import com.threecubed.entities.Player;
 import com.threecubed.graficos.SprinteSheet;
+import com.threecubed.world.World;
 
 import java.awt.Color;
 import java.awt.Canvas;
@@ -24,9 +24,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static JFrame frame;
     private Thread thread;
     private boolean isRunning = true;
-    private final int WIDTH = 240;
-    private final int HEIGHT = 160;
-    private final int SCALE = 5;
+    private final int WIDTH = 320;
+    private final int HEIGHT = 240;
+    private final int SCALE = 3;
 
     private BufferedImage image;
 
@@ -35,21 +35,24 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     private Player player;
 
+    public static World world;
+
     public Game() {
         addKeyListener(this);
         setPreferredSize( new Dimension(WIDTH*SCALE, HEIGHT*SCALE) );
         initFrame();
         // init objects
-        image = new BufferedImage(WIDTH*SCALE, HEIGHT*SCALE, BufferedImage.TYPE_INT_RGB);
+        
+        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         entities = new ArrayList<Entity>();
         sprinteSheet = new SprinteSheet("/spritsheet.png");
-
         player = new Player(0, 0, 16, 16, sprinteSheet.getSprite(9*16, 16, 16, 16));
+        world = new World("/map.png");
         entities.add(player);
     }
 
     public void initFrame(){
-        frame = new JFrame("Game#1");
+        frame = new JFrame("Ruins of a Bad Land");
         frame.add(this);
         frame.setResizable(false);
         frame.pack();
@@ -90,14 +93,17 @@ public class Game extends Canvas implements Runnable, KeyListener {
         g.setColor(new Color(0,0,0));
         g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
 
-        // section to render the game
+        // SECTION TO RENDER GAME
+        
+        // render world
+        world.render(g);
 
         for (int i = 0; i < entities.size(); i++) {
             Entity e = entities.get(i);
             e.render(g);
         }
         
-        // end of section
+        // END OF SECTION
         g.dispose();
         g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
@@ -172,7 +178,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
         
     }
 }

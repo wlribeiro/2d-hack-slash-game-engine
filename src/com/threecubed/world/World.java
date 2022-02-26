@@ -55,7 +55,7 @@ public class World {
 
                     } else if (pixelAtual == 0xFFf2ff00) {
                         // bullet 
-                        System.out.println("enemy");
+                        
 
 
                     } else if (pixelAtual == 0xFF00d5ff) {

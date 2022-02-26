@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 
 import com.threecubed.entities.Enemy;
 import com.threecubed.entities.Entity;
+import com.threecubed.entities.Weapon;
 import com.threecubed.main.Game;
 
 
@@ -59,7 +60,7 @@ public class World {
 
                     } else if (pixelAtual == 0xFF00d5ff) {
                         // weapon
-                        Game.entities.add(new Enemy(xx*16, yy*16, 16, 16, Entity.WEAPON));
+                        Game.entities.add(new Weapon(xx*16, yy*16, 16, 16, Entity.WEAPON));
                     }
                 }
             }

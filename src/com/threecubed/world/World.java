@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.awt.Graphics;
 import javax.imageio.ImageIO;
 
+import com.threecubed.entities.Bullet;
 import com.threecubed.entities.Enemy;
 import com.threecubed.entities.Entity;
+import com.threecubed.entities.Lifepack;
 import com.threecubed.entities.Weapon;
 import com.threecubed.main.Game;
 
@@ -48,6 +50,7 @@ public class World {
 
                     } else if(pixelAtual == 0xFFff0000) {
                         // lifepack
+                        Game.entities.add(new Lifepack(xx*16, yy*16, 16, 16, Entity.LIFEPACK));
                         
                     } else if (pixelAtual == 0xFF09ff00) {
                         // enemy
@@ -55,7 +58,7 @@ public class World {
 
                     } else if (pixelAtual == 0xFFf2ff00) {
                         // bullet 
-                        
+                        Game.entities.add(new Bullet(xx*16, yy*16, 16, 16, Entity.BULLET));
 
 
                     } else if (pixelAtual == 0xFF00d5ff) {

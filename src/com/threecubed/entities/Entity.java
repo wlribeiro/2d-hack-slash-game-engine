@@ -7,9 +7,9 @@ import com.threecubed.main.Game;
 
 public class Entity {
     
-    public static BufferedImage LIFEPACK = Game.sprinteSheet.getSprite(15*16, 15*16, 16, 16);
+    public static BufferedImage LIFEPACK = Game.sprinteSheet.getSprite(18*16, 14*16, 16, 16);
     public static BufferedImage WEAPON = Game.sprinteSheet.getSprite(18*16, 9*16, 16, 32);
-    public static BufferedImage BULLET = Game.sprinteSheet.getSprite(15*16, 15*16, 16, 16);
+    public static BufferedImage BULLET = Game.sprinteSheet.getSprite(18*16, 1*16, 16, 16);
     public static BufferedImage ENEMY = Game.sprinteSheet.getSprite(23*16, 2*16, 16, 16);
 
     protected int x;

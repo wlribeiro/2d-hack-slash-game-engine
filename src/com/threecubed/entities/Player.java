@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import com.threecubed.main.Game;
 import com.threecubed.world.Camera;
+import com.threecubed.world.World;
 
 import java.awt.Graphics;
 
@@ -63,8 +64,8 @@ public class Player extends Entity {
             }
         }
 
-        Camera.x = this.getX() - (Game.WIDTH - x);
-        Camera.y = this.getY() - (Game.HEIGHT - y);
+        Camera.x = Camera.clamp(this.getX() - (Game.WIDTH - x), 0, World.WIDTH*16 - Game.WIDTH);
+        Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT - y), 0, World.HEIGHT*16 - Game.HEIGHT);
     }
 
     public void render(Graphics g){

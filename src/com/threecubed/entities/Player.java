@@ -7,7 +7,6 @@ import com.threecubed.world.Camera;
 import com.threecubed.world.World;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 public class Player extends Entity {
 

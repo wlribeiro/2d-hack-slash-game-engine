@@ -14,8 +14,10 @@ public class Enemy extends Entity {
 
     private int maskx = 8;
     private int masky = 8;
-    private int maskw = 10;
-    private int maskh = 10;
+    private int maskw = 16;
+    private int maskh = 16;
+
+    private boolean DEBUG = false;
 
     public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
         super(x, y, width, height, sprite);
@@ -66,7 +68,10 @@ public class Enemy extends Entity {
 
     public void render(Graphics g){
         super.render(g);
-        g.setColor(Color.BLUE);
-        g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, maskw, maskh);
+        if(DEBUG) {
+            g.setColor(Color.BLUE);
+            g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, maskw, maskh);
+        }
+            
     }
 }

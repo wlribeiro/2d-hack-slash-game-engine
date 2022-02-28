@@ -11,7 +11,7 @@ import java.awt.Graphics;
 public class Player extends Entity {
 
     public boolean right, up, left, down;
-    public int speed = 1;
+    public double speed = 1; // resolver bug do 1.x // quando a velocidade do personagem está em valor double, ele acaba travando na pareder
     public int right_dir = 0, left_dir = 1;
     public int dir = right_dir;
 
@@ -35,20 +35,20 @@ public class Player extends Entity {
     }
     
     public void tick(){
-        if(right){
+        if(right && World.isFree((int)(x + speed), this.getY())){
             dir = right_dir;
             moved = true;
             x += speed;
-        } else if (left){
+        } else if (left && World.isFree((int)(x - speed), this.getY())){
             dir = left_dir;
             moved = true;
             x -= speed;
         }
 
-        if(up){
+        if(up  && World.isFree(this.getX(), (int)(y - speed))){
             moved = true;
             y -= speed;
-        } else if(down){
+        } else if(down  && World.isFree(this.getX(), (int)(y + speed))){
             moved = true;
             y += speed;
         }

@@ -55,7 +55,9 @@ public class World {
                         
                     } else if (pixelAtual == 0xFF09ff00) {
                         // enemy
-                        Game.entities.add(new Enemy(xx*16, yy*16, 16, 16, Entity.ENEMY));
+                        Enemy enemy = new Enemy(xx*16, yy*16, 16, 16, Entity.ENEMY);
+                        Game.entities.add(enemy);
+                        Game.enemies.add(enemy);
 
                     } else if (pixelAtual == 0xFFf2ff00) {
                         // bullet 

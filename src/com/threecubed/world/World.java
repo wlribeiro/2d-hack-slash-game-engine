@@ -22,15 +22,17 @@ public class World {
     public World(String path){
         try {
             BufferedImage map = ImageIO.read(getClass().getResource(path));
-            int[] pixels = new int[map.getWidth() * map.getHeight()];
             WIDTH = map.getWidth();
             HEIGHT = map.getHeight();
-            tiles = new Tile[map.getWidth() * map.getHeight()];
-            map.getRGB(0, 0, map.getWidth(), map.getHeight(), pixels, 0, map.getWidth());
+            
+            int[] pixels = new int[WIDTH * HEIGHT];
+            
+            tiles = new Tile[WIDTH * HEIGHT];
+            map.getRGB(0, 0, WIDTH, HEIGHT, pixels, 0, WIDTH);
 
-            for(int xx = 0; xx < map.getWidth(); xx++){
-                for(int yy = 0; yy < map.getHeight(); yy++){
-                    int pixelAtual = pixels[xx + (yy * map.getWidth())];
+            for(int xx = 0; xx < WIDTH; xx++){
+                for(int yy = 0; yy < HEIGHT; yy++){
+                    int pixelAtual = pixels[xx + (yy * WIDTH)];
                     
                     tiles[xx + (yy * WIDTH)] = new FloorTile(Tile.TILE_FLOOR, xx*16, yy*16);
 
@@ -47,7 +49,6 @@ public class World {
                         Game.player.setX(xx*16);
                         Game.player.setY(yy*16);
                         tiles[xx + (yy * WIDTH)] = new FloorTile(Tile.TILE_FLOOR, xx*16, yy*16);
-                        System.out.println("player");
 
                     } else if(pixelAtual == 0xFFff0000) {
                         // lifepack

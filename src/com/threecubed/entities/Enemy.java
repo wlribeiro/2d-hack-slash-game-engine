@@ -19,8 +19,26 @@ public class Enemy extends Entity {
 
     private boolean DEBUG = false;
 
+    private int frames = 0, maxFrames = 7, index = 0, maxIndex = 3;
+    
+    public boolean moved;
+
+    public int right_dir = 0, left_dir = 1;
+    public int dir = right_dir;
+
+    private BufferedImage[] rightEnemy;
+    private BufferedImage[] leftEnemy;
+
     public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
         super(x, y, width, height, sprite);
+        
+        rightEnemy = new BufferedImage[4];
+        leftEnemy = new BufferedImage[4];
+
+        for(int i = 0; i < 4; i ++ ){
+            rightEnemy[i] = Game.sprinteSheet.getSprite((23 + i)*16, 2*16, 16, 16);
+            leftEnemy[i] = Game.sprinteSheet.getSprite((23 + i)*16, 2*16, 16, 16);
+        }
     }
     
 // bug da movimentação. Os inimigos travam nas paredes ou colidem e se proprios 
@@ -45,20 +63,33 @@ public class Enemy extends Entity {
 
         if(((int)x < positionX) && xRightIsFree && !xRightIsColliding){
             x += speed;
-
+            dir = right_dir;
+            moved = true;
         } else if(((int)x > positionX) && xLeftIsFree && !xLeftIsColliding){
             x -= speed;
-
+            dir = left_dir;
+            moved = true;
         }
 
         if(((int)(y) < positionY) && yUpIsFree && !yUpIsColliding){
             y += speed;
-
+            moved = true;
         } else if(((int)(y) > positionY) && yDownIsFree && !yDownIsColliding){
             y -= speed;
-
+            moved = true;
         }
         
+
+        if(moved){
+            frames ++;
+            if(frames == maxFrames){
+                frames = 0;
+                index ++;
+                if(index > maxIndex){
+                    index = 0;
+                }
+            }
+        }
     }
 
     public boolean isColiding(int xnext, int ynext){
@@ -78,11 +109,16 @@ public class Enemy extends Entity {
     }
 
     public void render(Graphics g){
-        super.render(g);
+        if(dir == right_dir){
+            g.drawImage(rightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+        } else if (dir == left_dir){
+            g.drawImage(leftEnemy[index],this.getX() - Camera.x, this.getY() - Camera.y, null);
+        }
+
         if(DEBUG) {
             g.setColor(Color.BLUE);
             g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, maskw, maskh);
         }
-            
+    
     }
 }

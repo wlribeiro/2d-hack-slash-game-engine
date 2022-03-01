@@ -10,12 +10,12 @@ import com.threecubed.world.World;
 
 public class Enemy extends Entity {
 
-    private double speed =  1;
+    private int speed =  1;
 
     private int maskx = 8;
     private int masky = 8;
-    private int maskw = 16;
-    private int maskh = 16;
+    private int maskw = 10;
+    private int maskh = 10;
 
     private boolean DEBUG = false;
 
@@ -27,23 +27,34 @@ public class Enemy extends Entity {
     public void tick(){
         int positionX = Game.player.getX();
         int positionY = Game.player.getY();
-        boolean xRightIsFree = World.isFree((int)(x + speed), positionY);
-        boolean xLeftIsFree = World.isFree((int)(x - speed), positionY);
-        boolean yUpIsFree = World.isFree(positionX, (int)(y + speed));
-        boolean yDownIsFree = World.isFree(positionX, (int)(y - speed));
 
-        if(((int)x < positionX) && xRightIsFree && !isColiding((int)(x + speed), positionY)){
+        int xNextPositionRight = (int)(x + speed);
+        int xNextPositionLeft = (int)(x - speed);
+        int yNextPositionUp = (int)(y + speed);
+        int yNextPositionDown = (int)(y - speed);
+
+        boolean xRightIsFree = World.isFree(xNextPositionRight, this.getY());
+        boolean xLeftIsFree = World.isFree(xNextPositionLeft, this.getY());
+        boolean yUpIsFree = World.isFree(this.getX(), yNextPositionUp);
+        boolean yDownIsFree = World.isFree(this.getX(), yNextPositionDown);
+
+        boolean xRightIsColliding = isColiding(xNextPositionRight, this.getY());
+        boolean xLeftIsColliding = isColiding(xNextPositionLeft, this.getY());
+        boolean yUpIsColliding = isColiding(this.getX(), yNextPositionUp);
+        boolean yDownIsColliding = isColiding(this.getX(), yNextPositionDown);
+
+        if(((int)x < positionX) && xRightIsFree && !xRightIsColliding){
             x += speed;
 
-        } else if(((int)x > positionX) && xLeftIsFree && !isColiding((int)(x - speed), positionY)){
+        } else if(((int)x > positionX) && xLeftIsFree && !xLeftIsColliding){
             x -= speed;
 
         }
 
-        if(((int)(y) < positionY) && yUpIsFree && !isColiding(positionX, (int)(y + speed))){
+        if(((int)(y) < positionY) && yUpIsFree && !yUpIsColliding){
             y += speed;
 
-        } else if(((int)(y) > positionY) && yDownIsFree && !isColiding(positionX, (int)(y - speed))){
+        } else if(((int)(y) > positionY) && yDownIsFree && !yDownIsColliding){
             y -= speed;
 
         }

@@ -28,27 +28,10 @@ public class Player extends Entity {
 
         for(int i = 0; i < 4; i ++ ){
             rightPlayer[i] = Game.sprinteSheet.getSprite((9 + i) * 16, 16, 16, 16);
-            leftPlayer[i] = mirrorImage(Game.sprinteSheet.getSprite((9 + i) * 16, 16, 16, 16));
+            leftPlayer[i] = Game.sprinteSheet.mirrorImage(Game.sprinteSheet.getSprite((9 + i) * 16, 16, 16, 16));
         }
         
 
-    }
-
-    public BufferedImage mirrorImage(BufferedImage image){
-        int imageWidth = image.getWidth();
-        int imageHeight = image.getHeight();
-        int imageType = image.getType();
-
-        BufferedImage invertedImage = new BufferedImage(imageWidth, imageHeight, imageType);
-
-        for(int y = 0; y < imageHeight; y++){
-            for(int lx = 0, rx = imageWidth - 1; lx < imageWidth; lx++, rx--){
-                int pixel = image.getRGB(lx, y);
-                invertedImage.setRGB(rx, y, pixel);
-            }
-        }
-
-        return invertedImage;
     }
     
     public void tick(){

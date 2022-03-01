@@ -37,7 +37,7 @@ public class Enemy extends Entity {
 
         for(int i = 0; i < 4; i ++ ){
             rightEnemy[i] = Game.sprinteSheet.getSprite((23 + i)*16, 2*16, 16, 16);
-            leftEnemy[i] = Game.sprinteSheet.getSprite((23 + i)*16, 2*16, 16, 16);
+            leftEnemy[i] =  Game.sprinteSheet.mirrorImage(Game.sprinteSheet.getSprite((23 + i)*16, 2*16, 16, 16));
         }
     }
     
